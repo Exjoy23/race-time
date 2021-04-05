@@ -1,0 +1,30 @@
+{
+  "name": "race-time",
+  "version": "1.0.0",
+  "private": true,
+  "description": "race-time",
+  "scripts": {
+    "eslint": "eslint src/",
+    "test": "npm run eslint",
+    "build": "webpack --mode development",
+    "start": "webpack-dev-server --open",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "eslint": "7.13.0",
+    "eslint-config-htmlacademy": "3.0.0",
+    "gh-pages": "^3.1.0",
+    "portfinder-sync": "0.0.2",
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "dependencies": {
+    "cannon": "^0.6.2",
+    "dat.gui": "^0.7.7",
+    "three": "^0.124.0"
+  }
+}

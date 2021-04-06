@@ -26,11 +26,8 @@ gltfLoader.load('./objects/scene.glb', (gltf) => {
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
-
 camera.rotation.y = Math.PI;
 camera.rotation.x = Math.PI / 7;
-
-camera.position.y = 150;
 
 let helper = null;
 
@@ -48,25 +45,6 @@ setTimeout(() => {
 
 // const controls = new OrbitControls(camera, canvas);
 
-const directionalLight = new THREE.DirectionalLight('#ffffff', 0.3);
-// directionalLight.castShadow = true;
-directionalLight.position.set(0, 50, 0);
-scene.add(directionalLight);
-
-const ambientLight = new THREE.AmbientLight('#ffffff', 0.3);
-scene.add(ambientLight);
-
-const pointLight = new THREE.PointLight('#ffffff', 10);
-pointLight.castShadow = true;
-pointLight.shadow.mapSize.set(1024, 1024);
-pointLight.shadow.camera.far = 150;
-pointLight.shadow.radius = 8;
-scene.add(pointLight);
-pointLight.position.set(0, 20, 0);
-
-const pointLightHelper = new THREE.PointLightHelper(pointLight);
-scene.add(pointLightHelper);
-
 const clock = new THREE.Clock();
 let oldElapsedTime = 0;
 
@@ -77,9 +55,10 @@ const tick = () => {
 
   world.step(1 / 60, deltaTime, 3);
 
-  if (helper) {
-    helper.update();
-  }
+  // if (helper) {
+  //   helper.update();
+  // }
+
   renderer.render(scene, camera);
 
   stats.update();

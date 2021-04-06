@@ -3,9 +3,15 @@ body {
   margin: 0;
   overflow: hidden;
 
-  user-select: none;
+  background-color: #000000;
 
-  touch-action: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 .speed {

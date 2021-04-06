@@ -2,8 +2,6 @@ import * as CANNON from 'cannon';
 
 const world = new CANNON.World();
 world.broadphase = new CANNON.SAPBroadphase(world);
-
-world.broadphase = new CANNON.SAPBroadphase(world);
 world.gravity.set(0, -10, 0);
 world.defaultContactMaterial.friction = 0;
 

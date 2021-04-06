@@ -10,15 +10,8 @@ let car = null;
 
 gltfLoader.load('./objects/cybertruck.glb', (gltf) => {
   car = gltf.scene;
-  car.children[0].children[0].castShadow = true;
-  car.children[0].children[1].castShadow = true;
-  car.children[0].children[2].castShadow = true;
-  car.children[0].children[3].castShadow = true;
-  car.children[0].children[4].castShadow = true;
-  car.children[1].children[0].castShadow = true;
-  car.children[2].children[0].castShadow = true;
-  car.children[3].children[0].castShadow = true;
-  car.children[4].children[0].castShadow = true;
+  car.children[0].children.forEach((item) => (item.castShadow = true));
+  car.children.forEach((item) => (item.children[0].castShadow = true));
 
   scene.add(car);
 });
@@ -28,8 +21,6 @@ const chassisBody = new CANNON.Body({ mass: 150 });
 chassisBody.addShape(chassisShape);
 chassisBody.position.set(0, 2, 0);
 chassisBody.angularVelocity.set(0, 0, 0);
-
-// helper.addVisual(chassisBody, 0xff0000);
 
 const vehicle = new CANNON.RaycastVehicle({
   chassisBody: chassisBody,

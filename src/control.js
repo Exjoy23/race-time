@@ -108,7 +108,7 @@ const onMoveKeydown = (evt) => {
       left = false;
       break;
 
-    case 32:
+    case 32: // stop
       stop = true;
       break;
   }
@@ -132,7 +132,7 @@ const onMoveKeyup = (evt) => {
       left = false;
       break;
 
-    case 32:
+    case 32: // stop
       stop = false;
       break;
   }

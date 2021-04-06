@@ -3,6 +3,8 @@ body {
   margin: 0;
   overflow: hidden;
 
+  background-color: #000000;
+
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;

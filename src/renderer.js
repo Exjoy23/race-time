@@ -35,4 +35,6 @@ window.addEventListener('resize', () => {
   }, 500);
 });
 
+// console.log(renderer.info);
+
 export { renderer, sizes, canvas };

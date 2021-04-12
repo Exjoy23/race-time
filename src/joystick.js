@@ -2,10 +2,10 @@ export class JoyStick {
   constructor(options) {
     const circle = document.createElement('div');
     circle.style.cssText =
-      'position:absolute; user-select: none; touch-action: none; bottom:5vw; right:10vw; width:80px; height:80px; background:rgba(126, 126, 126, 0.5); border:#444 solid medium; border-radius:50%; transform:translateX(-50%);';
+      'position:absolute; bottom:10vw; right:10vw; width:80px; height:80px; background:rgba(126, 126, 126, 0.5); border:#444 solid medium; border-radius:50%; transform:translateX(-50%);';
     const thumb = document.createElement('div');
     thumb.style.cssText =
-      'position: absolute; user-select: none; touch-action: none; left: 20px; top: 20px; width: 40px; height: 40px; border-radius: 50%; background: #fff;';
+      'position: absolute; left: 20px; top: 20px; width: 40px; height: 40px; border-radius: 50%; background: #fff;';
     circle.appendChild(thumb);
     document.body.appendChild(circle);
     this.domElement = thumb;

@@ -71442,7 +71442,7 @@ const onMoveKeydown = (evt) => {
       left = false;
       break;
 
-    case 32:
+    case 32: // stop
       stop = true;
       break;
   }
@@ -71466,7 +71466,7 @@ const onMoveKeyup = (evt) => {
       left = false;
       break;
 
-    case 32:
+    case 32: // stop
       stop = false;
       break;
   }
@@ -71612,6 +71612,42 @@ class JoyStick {
 
 /***/ }),
 
+/***/ "./src/light.js":
+/*!**********************!*\
+  !*** ./src/light.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _scene_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scene.js */ "./src/scene.js");
+
+
+
+const directionalLight = new three__WEBPACK_IMPORTED_MODULE_0__["DirectionalLight"]('#ffffff', 0.3);
+// directionalLight.castShadow = true;
+directionalLight.position.set(0, 50, 0);
+_scene_js__WEBPACK_IMPORTED_MODULE_1__["scene"].add(directionalLight);
+
+const ambientLight = new three__WEBPACK_IMPORTED_MODULE_0__["AmbientLight"]('#ffffff', 0.3);
+_scene_js__WEBPACK_IMPORTED_MODULE_1__["scene"].add(ambientLight);
+
+const pointLight = new three__WEBPACK_IMPORTED_MODULE_0__["PointLight"]('#ffffff', 10);
+pointLight.castShadow = true;
+pointLight.shadow.mapSize.set(1024, 1024);
+pointLight.shadow.camera.far = 150;
+pointLight.shadow.radius = 8;
+_scene_js__WEBPACK_IMPORTED_MODULE_1__["scene"].add(pointLight);
+pointLight.position.set(0, 20, 0);
+
+// const pointLightHelper = new THREE.PointLightHelper(pointLight);
+// scene.add(pointLightHelper);
+
+
+/***/ }),
+
 /***/ "./src/main.js":
 /*!*********************!*\
   !*** ./src/main.js ***!
@@ -71623,8 +71659,10 @@ class JoyStick {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scene_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scene.js */ "./src/scene.js");
 /* harmony import */ var _physic_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./physic.js */ "./src/physic.js");
-/* harmony import */ var _vehicle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vehicle.js */ "./src/vehicle.js");
-/* harmony import */ var _control_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./control.js */ "./src/control.js");
+/* harmony import */ var _light_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./light.js */ "./src/light.js");
+/* harmony import */ var _vehicle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vehicle.js */ "./src/vehicle.js");
+/* harmony import */ var _control_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./control.js */ "./src/control.js");
+
 
 
 
@@ -71650,8 +71688,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const world = new cannon__WEBPACK_IMPORTED_MODULE_0__["World"]();
-world.broadphase = new cannon__WEBPACK_IMPORTED_MODULE_0__["SAPBroadphase"](world);
-
 world.broadphase = new cannon__WEBPACK_IMPORTED_MODULE_0__["SAPBroadphase"](world);
 world.gravity.set(0, -10, 0);
 world.defaultContactMaterial.friction = 0;
@@ -71807,11 +71843,8 @@ gltfLoader.load('./objects/scene.glb', (gltf) => {
 const scene = new three__WEBPACK_IMPORTED_MODULE_0__["Scene"]();
 
 const camera = new three__WEBPACK_IMPORTED_MODULE_0__["PerspectiveCamera"](75, _renderer_js__WEBPACK_IMPORTED_MODULE_6__["sizes"].width / _renderer_js__WEBPACK_IMPORTED_MODULE_6__["sizes"].height, 0.1, 1000);
-
 camera.rotation.y = Math.PI;
 camera.rotation.x = Math.PI / 7;
-
-camera.position.y = 150;
 
 let helper = null;
 
@@ -71829,25 +71862,6 @@ setTimeout(() => {
 
 // const controls = new OrbitControls(camera, canvas);
 
-const directionalLight = new three__WEBPACK_IMPORTED_MODULE_0__["DirectionalLight"]('#ffffff', 0.3);
-// directionalLight.castShadow = true;
-directionalLight.position.set(0, 50, 0);
-scene.add(directionalLight);
-
-const ambientLight = new three__WEBPACK_IMPORTED_MODULE_0__["AmbientLight"]('#ffffff', 0.3);
-scene.add(ambientLight);
-
-const pointLight = new three__WEBPACK_IMPORTED_MODULE_0__["PointLight"]('#ffffff', 10);
-pointLight.castShadow = true;
-pointLight.shadow.mapSize.set(1024, 1024);
-pointLight.shadow.camera.far = 150;
-pointLight.shadow.radius = 8;
-scene.add(pointLight);
-pointLight.position.set(0, 20, 0);
-
-const pointLightHelper = new three__WEBPACK_IMPORTED_MODULE_0__["PointLightHelper"](pointLight);
-scene.add(pointLightHelper);
-
 const clock = new three__WEBPACK_IMPORTED_MODULE_0__["Clock"]();
 let oldElapsedTime = 0;
 
@@ -71858,9 +71872,10 @@ const tick = () => {
 
   _physic_js__WEBPACK_IMPORTED_MODULE_7__["world"].step(1 / 60, deltaTime, 3);
 
-  if (helper) {
-    helper.update();
-  }
+  // if (helper) {
+  //   helper.update();
+  // }
+
   _renderer_js__WEBPACK_IMPORTED_MODULE_6__["renderer"].render(scene, camera);
 
   _utils_js__WEBPACK_IMPORTED_MODULE_3__["stats"].update();
@@ -71898,14 +71913,7 @@ tick();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stats", function() { return stats; });
 /* harmony import */ var three_examples_jsm_libs_stats_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three/examples/jsm/libs/stats.module.js */ "./node_modules/three/examples/jsm/libs/stats.module.js");
-/* harmony import */ var _scene_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scene.js */ "./src/scene.js");
-/* harmony import */ var _physic_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./physic.js */ "./src/physic.js");
-// import CannonHelper from './cannon-helper.js';
 
-
-
-
-// const helper = new CannonHelper(scene, world);
 
 const stats = new three_examples_jsm_libs_stats_module_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
 document.body.appendChild(stats.dom);
@@ -71944,15 +71952,8 @@ let car = null;
 
 gltfLoader.load('./objects/cybertruck.glb', (gltf) => {
   car = gltf.scene;
-  car.children[0].children[0].castShadow = true;
-  car.children[0].children[1].castShadow = true;
-  car.children[0].children[2].castShadow = true;
-  car.children[0].children[3].castShadow = true;
-  car.children[0].children[4].castShadow = true;
-  car.children[1].children[0].castShadow = true;
-  car.children[2].children[0].castShadow = true;
-  car.children[3].children[0].castShadow = true;
-  car.children[4].children[0].castShadow = true;
+  car.children[0].children.forEach((item) => (item.castShadow = true));
+  car.children.forEach((item) => (item.children[0].castShadow = true));
 
   _scene_js__WEBPACK_IMPORTED_MODULE_3__["scene"].add(car);
 });
@@ -71962,8 +71963,6 @@ const chassisBody = new cannon__WEBPACK_IMPORTED_MODULE_0__["Body"]({ mass: 150 
 chassisBody.addShape(chassisShape);
 chassisBody.position.set(0, 2, 0);
 chassisBody.angularVelocity.set(0, 0, 0);
-
-// helper.addVisual(chassisBody, 0xff0000);
 
 const vehicle = new cannon__WEBPACK_IMPORTED_MODULE_0__["RaycastVehicle"]({
   chassisBody: chassisBody,

@@ -1,25 +1,12 @@
 import * as CANNON from 'cannon';
 import { world } from './physic.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { wheelMaterial } from './physic.js';
 import { scene } from './scene.js';
-
-const gltfLoader = new GLTFLoader();
-
-let car = null;
-
-gltfLoader.load('./objects/cybertruck.glb', (gltf) => {
-  car = gltf.scene;
-  car.children[0].children.forEach((item) => (item.castShadow = true));
-  car.children.forEach((item) => (item.children[0].castShadow = true));
-
-  scene.add(car);
-});
 
 const chassisShape = new CANNON.Box(new CANNON.Vec3(1, 0.5, 2.9));
 const chassisBody = new CANNON.Body({ mass: 150 });
 chassisBody.addShape(chassisShape);
-chassisBody.position.set(0, 2, 0);
+chassisBody.position.set(0, 3, 0);
 chassisBody.angularVelocity.set(0, 0, 0);
 
 const vehicle = new CANNON.RaycastVehicle({
@@ -73,10 +60,10 @@ vehicle.wheelInfos.forEach((wheel) => {
 });
 
 const updatePhysics = () => {
-  if (car) {
-    car.children[0].position.copy(chassisBody.position);
-    car.children[0].quaternion.copy(chassisBody.quaternion);
-  }
+  const car = scene.children[3];
+
+  car.children[0].position.copy(chassisBody.position);
+  car.children[0].quaternion.copy(chassisBody.quaternion);
 
   for (let i = 0; i < vehicle.wheelInfos.length; i++) {
     vehicle.updateWheelTransform(i);
@@ -85,13 +72,11 @@ const updatePhysics = () => {
     wheelBodies[i].position.copy(t.position);
     wheelBodies[i].quaternion.copy(t.quaternion);
 
-    if (car) {
-      car.children[4 - i].position.copy(t.position);
-      car.children[4 - i].quaternion.copy(t.quaternion);
-      car.children[4 - i].rotateZ(Math.PI / 2);
-      car.children[1].rotateZ(Math.PI);
-      car.children[3].rotateZ(Math.PI);
-    }
+    car.children[4 - i].position.copy(t.position);
+    car.children[4 - i].quaternion.copy(t.quaternion);
+    car.children[4 - i].rotateZ(Math.PI / 2);
+    car.children[1].rotateZ(Math.PI);
+    car.children[3].rotateZ(Math.PI);
   }
 };
 

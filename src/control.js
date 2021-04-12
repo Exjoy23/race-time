@@ -26,7 +26,9 @@ const onMove = (forward, turn) => {
 
     vehicle.applyEngineForce(force, 2);
     vehicle.applyEngineForce(force, 3);
-  } else {
+  }
+
+  if (!forward) {
     vehicle.setBrake(brakeForce, 0);
     vehicle.setBrake(brakeForce, 1);
     vehicle.setBrake(brakeForce, 2);
@@ -52,33 +54,45 @@ const moveKeyboard = () => {
     vehicle.applyEngineForce(-engineForce, 1);
     vehicle.applyEngineForce(-engineForce, 2);
     vehicle.applyEngineForce(-engineForce, 3);
-  } else if (backward) {
+  }
+
+  if (backward) {
     vehicle.applyEngineForce(engineForce, 0);
     vehicle.applyEngineForce(engineForce, 1);
     vehicle.applyEngineForce(engineForce, 2);
     vehicle.applyEngineForce(engineForce, 3);
-  } else {
+  }
+
+  if (!forward && !backward) {
     vehicle.applyEngineForce(0, 0);
     vehicle.applyEngineForce(0, 1);
     vehicle.applyEngineForce(0, 2);
     vehicle.applyEngineForce(0, 3);
   }
+
   if (left) {
     vehicle.setSteeringValue(maxSteerVal, 2);
     vehicle.setSteeringValue(maxSteerVal, 3);
-  } else if (right) {
+  }
+
+  if (right) {
     vehicle.setSteeringValue(-maxSteerVal, 2);
     vehicle.setSteeringValue(-maxSteerVal, 3);
-  } else {
+  }
+
+  if (!left && !right) {
     vehicle.setSteeringValue(0, 2);
     vehicle.setSteeringValue(0, 3);
   }
+
   if (stop) {
     vehicle.setBrake(10, 0);
     vehicle.setBrake(10, 1);
     vehicle.setBrake(10, 2);
     vehicle.setBrake(10, 3);
-  } else {
+  }
+
+  if (!stop) {
     vehicle.setBrake(0, 0);
     vehicle.setBrake(0, 1);
     vehicle.setBrake(0, 2);

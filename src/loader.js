@@ -24,6 +24,7 @@ gltfLoader.load('./objects/scene.glb', (gltf) => {
 
 gltfLoader.load('./objects/cybertruck.glb', (gltf) => {
   const car = gltf.scene;
+  car.name = 'cybertruck';
 
   scene.add(car);
 });

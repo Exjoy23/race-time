@@ -52,8 +52,8 @@ const tick = () => {
   // showSpeed();
 
   camera.position.x = chassisBody.position.x;
-  camera.position.z = chassisBody.position.z - 15;
-  camera.position.y = chassisBody.position.y + 20;
+  camera.position.z = chassisBody.position.z - 10;
+  camera.position.y = chassisBody.position.y + 10;
   camera.lookAt(new Vector3(chassisBody.position.x, chassisBody.position.y, chassisBody.position.z));
 
   window.requestAnimationFrame(tick);

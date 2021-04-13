@@ -1,4 +1,4 @@
-import * as CANNON from 'cannon';
+import * as CANNON from 'cannon-es';
 import { world } from './physic.js';
 import { wheelMaterial } from './physic.js';
 import { scene } from './scene.js';
@@ -60,7 +60,7 @@ vehicle.wheelInfos.forEach((wheel) => {
 });
 
 const updatePhysics = () => {
-  const car = scene.children[3];
+  const car = scene.children.filter((item) => item.name === 'cybertruck')[0];
 
   car.children[0].position.copy(chassisBody.position);
   car.children[0].quaternion.copy(chassisBody.quaternion);

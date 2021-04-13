@@ -1,4 +1,4 @@
-import * as CANNON from 'cannon';
+import * as CANNON from 'cannon-es';
 
 const world = new CANNON.World();
 world.broadphase = new CANNON.SAPBroadphase(world);
@@ -46,7 +46,7 @@ const hfBody = new CANNON.Body({ mass: 0 });
 hfBody.addShape(hfShape);
 hfBody.position.set(-95, 0, 95);
 hfBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-world.add(hfBody);
+world.addBody(hfBody);
 
 const matrix1 = [
   [0, 0, 0, 0],
@@ -59,6 +59,6 @@ const hfBody1 = new CANNON.Body({ mass: 0 });
 hfBody1.addShape(hfShape1);
 hfBody1.position.set(-25, 8, 15);
 hfBody1.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-world.add(hfBody1);
+world.addBody(hfBody1);
 
 export { world, wheelMaterial, hfBody, hfBody1 };

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as CANNON from 'cannon';
+import * as CANNON from 'cannon-es';
 
 class CannonHelper {
   constructor(scene, world) {
@@ -68,20 +68,11 @@ class CannonHelper {
     return new CANNON.ConvexPolyhedron(vertices, faces);
   }
 
-  addVisual(
-    body,
-    color = 0x888888,
-    name = 'mesh',
-    castShadow = true,
-    receiveShadow = true
-  ) {
+  addVisual(body, color = 0x888888, name = 'mesh', castShadow = true, receiveShadow = true) {
     body.name = name;
     if (this.defaultMaterial === undefined && color == 0x888888)
       this.defaultMaterial = new THREE.MeshLambertMaterial({ color: color });
-    const material =
-      color == 0x888888
-        ? this.defaultMaterial
-        : new THREE.MeshLambertMaterial({ color: color });
+    const material = color == 0x888888 ? this.defaultMaterial : new THREE.MeshLambertMaterial({ color: color });
     if (this.settings === undefined) {
       this.settings = {
         stepFrequency: 60,
@@ -115,8 +106,7 @@ class CannonHelper {
     }
     // What geometry should be used?
     let mesh;
-    if (body instanceof CANNON.Body)
-      mesh = this.shape2Mesh(body, castShadow, receiveShadow, material);
+    if (body instanceof CANNON.Body) mesh = this.shape2Mesh(body, castShadow, receiveShadow, material);
 
     if (mesh) {
       // Add body

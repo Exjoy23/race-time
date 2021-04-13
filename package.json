@@ -23,7 +23,7 @@
     "node": "10"
   },
   "dependencies": {
-    "cannon": "^0.6.2",
+    "cannon-es": "^0.17.0",
     "dat.gui": "^0.7.7",
     "three": "^0.124.0"
   }
